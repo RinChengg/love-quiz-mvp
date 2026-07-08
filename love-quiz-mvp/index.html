@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>你是哪種內耗戀愛人格？</title>
+    <meta
+      name="description"
+      content="12 題測出你在親密關係裡最容易卡住的地方。這不是心理診斷，而是一個溫柔的戀愛互動小測驗。"
+    />
+    <meta property="og:title" content="你是哪種內耗戀愛人格？" />
+    <meta
+      property="og:description"
+      content="12 題測出你在親密關係裡最容易卡住的地方。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/relationship-mood.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="site">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+          <p class="eyebrow">戀愛互動小測驗</p>
+          <h1 id="hero-title">你是哪種內耗戀愛人格？</h1>
+          <p class="hero__lead">12 題測出你在親密關係裡最容易卡住的地方。</p>
+          <div class="hero__actions">
+            <button class="button button--primary" type="button" data-start>
+              開始測驗
+            </button>
+            <button class="button button--ghost" type="button" data-jump-result>
+              看結果類型
+            </button>
+          </div>
+          <p class="notice">
+            這不是心理診斷，而是一個幫你觀察戀愛互動模式的小測驗。
+          </p>
+        </div>
+      </section>
+
+      <section class="intro-strip" aria-label="測驗特色">
+        <div class="intro-strip__item">
+          <span>12</span>
+          <p>情境題</p>
+        </div>
+        <div class="intro-strip__item">
+          <span>8</span>
+          <p>人格結果</p>
+        </div>
+        <div class="intro-strip__item">
+          <span>3</span>
+          <p>分鐘完成</p>
+        </div>
+      </section>
+
+      <section class="quiz hidden" id="quiz" aria-labelledby="quiz-title">
+        <div class="quiz__topline">
+          <button class="icon-button" type="button" data-home aria-label="回到首頁">
+            ←
+          </button>
+          <div class="progress" aria-label="測驗進度">
+            <div class="progress__bar" data-progress></div>
+          </div>
+          <span class="question-count" data-question-count>1 / 12</span>
+        </div>
+
+        <div class="quiz__panel">
+          <p class="eyebrow" data-question-kicker>情境 01</p>
+          <h2 id="quiz-title" data-question-title></h2>
+          <div class="options" data-options></div>
+        </div>
+
+        <div class="quiz__controls">
+          <button class="button button--secondary" type="button" data-prev>
+            上一題
+          </button>
+          <button class="button button--secondary" type="button" data-restart>
+            重新開始
+          </button>
+        </div>
+      </section>
+
+      <section class="result hidden" id="result" aria-labelledby="result-title">
+        <div class="result__shell">
+          <p class="eyebrow">你的測驗結果</p>
+          <h2 id="result-title" data-result-name></h2>
+          <p class="result__tagline" data-result-tagline></p>
+
+          <div class="result__summary">
+            <div>
+              <span>內耗模式</span>
+              <p data-result-pattern></p>
+            </div>
+            <div>
+              <span>戀愛盲點</span>
+              <p data-result-blindspot></p>
+            </div>
+            <div>
+              <span>真正需要</span>
+              <p data-result-need></p>
+            </div>
+            <div>
+              <span>給你的建議</span>
+              <p data-result-advice></p>
+            </div>
+          </div>
+
+          <div class="scoreboard" aria-label="人格分數排行">
+            <h3>分數分布</h3>
+            <div data-score-list></div>
+          </div>
+
+          <div class="result__actions">
+            <button class="button button--primary" type="button" data-download>
+              下載結果圖
+            </button>
+            <button class="button button--secondary" type="button" data-share>
+              複製分享文案
+            </button>
+            <button class="button button--ghost-dark" type="button" data-retake>
+              再測一次
+            </button>
+          </div>
+          <p class="share-status" data-share-status aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="types" id="types" aria-labelledby="types-title">
+        <div class="section-heading">
+          <p class="eyebrow">結果類型</p>
+          <h2 id="types-title">8 種內耗戀愛人格</h2>
+        </div>
+        <div class="type-grid" data-type-grid></div>
+      </section>
+    </main>
+  </body>
+</html>
