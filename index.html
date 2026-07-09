@@ -69,12 +69,18 @@
         <div class="quiz__panel">
           <p class="eyebrow" data-question-kicker>情境 01</p>
           <h2 id="quiz-title" data-question-title></h2>
+          <p class="quiz__hint">
+            先選最像你的第一反應；如果還有一個很像，可以再加選作為次接近。
+          </p>
           <div class="options" data-options></div>
         </div>
 
         <div class="quiz__controls">
           <button class="button button--secondary" type="button" data-prev>
             上一題
+          </button>
+          <button class="button button--primary" type="button" data-next>
+            下一題
           </button>
           <button class="button button--secondary" type="button" data-restart>
             重新開始
@@ -107,6 +113,12 @@
             </div>
           </div>
 
+          <div class="compatibility">
+            <span>適合跟哪種類型談戀愛</span>
+            <h3 data-result-compatible-names></h3>
+            <p data-result-compatible-text></p>
+          </div>
+
           <div class="scoreboard" aria-label="人格分數排行">
             <h3>分數分布</h3>
             <div data-score-list></div>
@@ -117,7 +129,7 @@
               下載結果圖
             </button>
             <button class="button button--secondary" type="button" data-share>
-              複製分享文案
+              分享測驗連結
             </button>
             <button class="button button--ghost-dark" type="button" data-retake>
               再測一次

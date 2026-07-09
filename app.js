@@ -1,3 +1,5 @@
+const PUBLIC_SITE_URL = "https://rinchengg.github.io/love-quiz-mvp/";
+
 const personalityTypes = {
   overthinking: {
     name: "過度解讀型",
@@ -11,6 +13,10 @@ const personalityTypes = {
       "你需要更清楚的溝通，也需要一套能讓自己先穩下來的方法，而不是把答案全部交給對方的反應。",
     advice:
       "先把事實和想像分開寫下來。當你想追問前，先問自己：我現在要的是資訊，還是安撫？",
+    compatible: {
+      ids: ["avoidantFreeze", "highGuard"],
+      text: "適合能穩定回應、但不會被你的焦慮拉著跑的人。冷處理逃避型可以提醒你保留空間，高標準防衛型則能一起把事實和想像分清楚。",
+    },
     color: "#904E5B",
   },
   peoplePleaser: {
@@ -25,6 +31,10 @@ const personalityTypes = {
       "你需要練習把需求說出口，也需要相信：被愛的人不是只能表現得好相處。",
     advice:
       "從小句子開始，例如「我其實有一點失落」。不用一次說完全部，但不要一直把自己消音。",
+    compatible: {
+      ids: ["highGuard", "casualMask"],
+      text: "適合重視界線、也願意聽你慢慢說的人。高標準防衛型能幫你把需求講清楚，假裝灑脫型則懂得在不失去尊嚴的前提下表達在乎。",
+    },
     color: "#A2626E",
   },
   securityHunger: {
@@ -39,6 +49,10 @@ const personalityTypes = {
       "你需要穩定的回應，也需要在關係之外建立能支撐自己的生活節奏。",
     advice:
       "可以直接說出你需要的確認，例如「你忙完跟我說一聲就好」。把需求說清楚，比反覆試探更有效。",
+    compatible: {
+      ids: ["peoplePleaser", "highGuard"],
+      text: "適合願意給承諾、也重視言行一致的人。討好壓抑型會照顧你的感受，高標準防衛型能用穩定行動讓你慢慢安心。",
+    },
     color: "#7B5E8E",
   },
   avoidantFreeze: {
@@ -53,6 +67,10 @@ const personalityTypes = {
       "你需要保留空間，但也需要讓對方知道你不是要消失，只是需要一點時間整理。",
     advice:
       "先留下一句可預期的訊息，例如「我現在有點亂，晚點 9 點再好好說」。有界線，也不中斷連結。",
+    compatible: {
+      ids: ["overthinking", "selfDoubt"],
+      text: "適合願意慢慢靠近、但也會把感受說出來的人。過度解讀型能讓你看見沉默造成的影響，自我懷疑型則需要你練習給出可預期的回應。",
+    },
     color: "#697D78",
   },
   loveBurner: {
@@ -67,6 +85,10 @@ const personalityTypes = {
       "你需要保留自己的節奏、朋友、興趣和目標，讓愛情成為生活的一部分，而不是全部。",
     advice:
       "每週固定安排一件完全不為對方而做的事。不是降低愛，而是把自己也放回關係裡。",
+    compatible: {
+      ids: ["casualMask", "highGuard"],
+      text: "適合有自己生活重心、能把你拉回節奏的人。假裝灑脫型不會讓關係過度燃燒，高標準防衛型會提醒你愛情也需要現實結構。",
+    },
     color: "#B55D4C",
   },
   highGuard: {
@@ -81,6 +103,10 @@ const personalityTypes = {
       "你需要區分真正的紅旗和可以磨合的差異，也需要允許關係用時間證明，而不是一次考完。",
     advice:
       "把你的標準分成三類：不能妥協、可以觀察、只是偏好。這會讓你的判斷更準，也更不累。",
+    compatible: {
+      ids: ["securityHunger", "loveBurner"],
+      text: "適合真誠、投入、願意用行動證明的人。安全感飢餓型會珍惜你的可靠，戀愛腦燃燒型能讓你練習不要只用審核模式談戀愛。",
+    },
     color: "#4F6674",
   },
   selfDoubt: {
@@ -95,6 +121,10 @@ const personalityTypes = {
       "你需要重新看見自己的價值，也需要把責任放回它真正的位置。",
     advice:
       "當你開始怪自己時，試著補一句：「這件事裡，對方可以負責的是什麼？」這不是推責，而是平衡。",
+    compatible: {
+      ids: ["avoidantFreeze", "peoplePleaser"],
+      text: "適合願意一起分擔責任、也不會用情緒壓迫你的人。冷處理逃避型能給你空間，討好壓抑型則能理解你害怕造成負擔的心情。",
+    },
     color: "#76698E",
   },
   casualMask: {
@@ -109,6 +139,10 @@ const personalityTypes = {
       "你需要一種不失去尊嚴的表達方式，讓在乎被看見，而不是只能躲在反話和沉默後面。",
     advice:
       "把「沒差」換成更準確的一句話，例如「我可以理解，但我其實有點在意」。這已經很夠了。",
+    compatible: {
+      ids: ["loveBurner", "overthinking"],
+      text: "適合能主動靠近、也願意讀懂你反話背後情緒的人。戀愛腦燃燒型會給你熱度，過度解讀型能察覺你其實沒有真的沒差。",
+    },
     color: "#8B6D5C",
   },
 };
@@ -368,9 +402,13 @@ const quizQuestions = [
   },
 ];
 
+function createEmptyAnswers() {
+  return Array.from({ length: quizQuestions.length }, () => []);
+}
+
 const state = {
   currentQuestion: 0,
-  answers: Array(quizQuestions.length).fill(null),
+  answers: createEmptyAnswers(),
   resultId: null,
   scores: {},
 };
@@ -388,6 +426,7 @@ const nodes = {
   questionTitle: document.querySelector("[data-question-title]"),
   options: document.querySelector("[data-options]"),
   prev: document.querySelector("[data-prev]"),
+  next: document.querySelector("[data-next]"),
   restart: document.querySelector("[data-restart]"),
   retake: document.querySelector("[data-retake]"),
   resultName: document.querySelector("[data-result-name]"),
@@ -396,6 +435,8 @@ const nodes = {
   resultBlindspot: document.querySelector("[data-result-blindspot]"),
   resultNeed: document.querySelector("[data-result-need]"),
   resultAdvice: document.querySelector("[data-result-advice]"),
+  resultCompatibleNames: document.querySelector("[data-result-compatible-names]"),
+  resultCompatibleText: document.querySelector("[data-result-compatible-text]"),
   scoreList: document.querySelector("[data-score-list]"),
   download: document.querySelector("[data-download]"),
   share: document.querySelector("[data-share]"),
@@ -425,7 +466,7 @@ function startQuiz() {
 
 function restartQuiz() {
   state.currentQuestion = 0;
-  state.answers = Array(quizQuestions.length).fill(null);
+  state.answers = createEmptyAnswers();
   state.resultId = null;
   state.scores = {};
   nodes.shareStatus.textContent = "";
@@ -435,7 +476,7 @@ function restartQuiz() {
 
 function renderQuestion() {
   const question = quizQuestions[state.currentQuestion];
-  const selectedIndex = state.answers[state.currentQuestion];
+  const selectedIndexes = state.answers[state.currentQuestion];
   const progressPercent = (state.currentQuestion / quizQuestions.length) * 100;
 
   nodes.progress.style.width = `${progressPercent}%`;
@@ -443,44 +484,74 @@ function renderQuestion() {
   nodes.questionKicker.textContent = `情境 ${String(state.currentQuestion + 1).padStart(2, "0")}`;
   nodes.questionTitle.textContent = question.text;
   nodes.prev.disabled = state.currentQuestion === 0;
+  nodes.next.disabled = selectedIndexes.length === 0;
+  nodes.next.textContent =
+    state.currentQuestion === quizQuestions.length - 1 ? "看結果" : "下一題";
 
   nodes.options.innerHTML = "";
   question.options.forEach((option, index) => {
+    const selectedPosition = selectedIndexes.indexOf(index);
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `option${selectedIndex === index ? " is-selected" : ""}`;
+    button.className = [
+      "option",
+      selectedPosition === 0 ? "is-primary" : "",
+      selectedPosition === 1 ? "is-secondary" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
     button.innerHTML = `
       <span class="option__letter">${String.fromCharCode(65 + index)}</span>
       <span class="option__text"></span>
+      <span class="option__badge"></span>
     `;
     button.querySelector(".option__text").textContent = option.text;
+    button.querySelector(".option__badge").textContent =
+      selectedPosition === 0 ? "最像" : selectedPosition === 1 ? "次接近" : "";
     button.addEventListener("click", () => selectOption(index));
     nodes.options.appendChild(button);
   });
 }
 
 function selectOption(index) {
-  state.answers[state.currentQuestion] = index;
-  renderQuestion();
+  const selectedIndexes = state.answers[state.currentQuestion];
+  const selectedPosition = selectedIndexes.indexOf(index);
 
-  window.setTimeout(() => {
-    if (state.currentQuestion < quizQuestions.length - 1) {
-      state.currentQuestion += 1;
-      renderQuestion();
-    } else {
-      finishQuiz();
-    }
-  }, 180);
+  if (selectedPosition === 0) {
+    selectedIndexes.shift();
+  } else if (selectedPosition === 1) {
+    selectedIndexes.splice(1, 1);
+  } else if (selectedIndexes.length < 2) {
+    selectedIndexes.push(index);
+  } else {
+    selectedIndexes[1] = index;
+  }
+
+  renderQuestion();
+}
+
+function goNext() {
+  if (state.answers[state.currentQuestion].length === 0) return;
+
+  if (state.currentQuestion < quizQuestions.length - 1) {
+    state.currentQuestion += 1;
+    renderQuestion();
+    nodes.quiz.scrollIntoView({ block: "start" });
+  } else {
+    finishQuiz();
+  }
 }
 
 function calculateScores() {
   const scores = Object.fromEntries(Object.keys(personalityTypes).map((id) => [id, 0]));
 
-  state.answers.forEach((answerIndex, questionIndex) => {
-    if (answerIndex === null) return;
-    const option = quizQuestions[questionIndex].options[answerIndex];
-    Object.entries(option.scores).forEach(([id, value]) => {
-      scores[id] += value;
+  state.answers.forEach((answerIndexes, questionIndex) => {
+    answerIndexes.forEach((answerIndex, position) => {
+      const option = quizQuestions[questionIndex].options[answerIndex];
+      const weight = position === 0 ? 1 : 0.5;
+      Object.entries(option.scores).forEach(([id, value]) => {
+        scores[id] += value * weight;
+      });
     });
   });
 
@@ -504,12 +575,17 @@ function finishQuiz() {
 
 function renderResult() {
   const result = personalityTypes[state.resultId];
+  const compatibleNames = result.compatible.ids
+    .map((id) => personalityTypes[id].name)
+    .join("、");
   nodes.resultName.textContent = result.name;
   nodes.resultTagline.textContent = result.tagline;
   nodes.resultPattern.textContent = result.pattern;
   nodes.resultBlindspot.textContent = result.blindspot;
   nodes.resultNeed.textContent = result.need;
   nodes.resultAdvice.textContent = result.advice;
+  nodes.resultCompatibleNames.textContent = compatibleNames;
+  nodes.resultCompatibleText.textContent = result.compatible.text;
   nodes.result.style.background = result.color;
   nodes.shareStatus.textContent = "";
 
@@ -530,7 +606,9 @@ function renderResult() {
     row.querySelector("span").textContent = item.type.shortName;
     row.querySelector(".score-fill").style.width = `${(item.score / maxScore) * 100}%`;
     row.querySelector(".score-fill").style.background = item.type.color;
-    row.querySelector("strong").textContent = item.score;
+    row.querySelector("strong").textContent = Number.isInteger(item.score)
+      ? item.score
+      : item.score.toFixed(1);
     nodes.scoreList.appendChild(row);
   });
 }
@@ -553,7 +631,11 @@ function renderTypeGrid() {
 
 function buildShareText() {
   const result = personalityTypes[state.resultId];
-  return `我測出來是「${result.name}」：${result.tagline}\n\n你也來測測看：你是哪種內耗戀愛人格？`;
+  const compatibleNames = result.compatible.ids
+    .map((id) => personalityTypes[id].name)
+    .join("、");
+
+  return `我測出來是「${result.name}」：${result.tagline}\n\n適合跟我談戀愛的類型：${compatibleNames}\n\n你也來測測看：你是哪種內耗戀愛人格？\n${PUBLIC_SITE_URL}`;
 }
 
 async function copyShareText() {
@@ -565,13 +647,14 @@ async function copyShareText() {
       await navigator.share({
         title: "你是哪種內耗戀愛人格？",
         text,
+        url: PUBLIC_SITE_URL,
       });
       nodes.shareStatus.textContent = "已開啟系統分享。";
       return;
     }
 
     await navigator.clipboard.writeText(text);
-    nodes.shareStatus.textContent = "分享文案已複製。";
+    nodes.shareStatus.textContent = "分享文案和測驗連結已複製。";
   } catch (error) {
     nodes.shareStatus.textContent = text;
   }
@@ -666,7 +749,9 @@ function downloadResultImage() {
   context.fillStyle = "#332B33";
   context.font =
     '700 28px "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif';
-  context.fillText("測驗不是診斷，是一次關係模式觀察。", 76, 1292);
+  context.fillText("測驗不是診斷，是一次關係模式觀察。", 76, 1260);
+  context.fillStyle = result.color;
+  context.fillText(PUBLIC_SITE_URL, 76, 1304);
 
   const link = document.createElement("a");
   link.download = `${result.name}-測驗結果.png`;
@@ -686,6 +771,7 @@ nodes.prev.addEventListener("click", () => {
 });
 nodes.restart.addEventListener("click", restartQuiz);
 nodes.retake.addEventListener("click", restartQuiz);
+nodes.next.addEventListener("click", goNext);
 nodes.share.addEventListener("click", copyShareText);
 nodes.download.addEventListener("click", downloadResultImage);
 

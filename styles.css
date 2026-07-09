@@ -126,6 +126,12 @@ button {
   transform: translateY(-2px);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none;
+}
+
 .button:focus-visible,
 .option:focus-visible,
 .icon-button:focus-visible {
@@ -274,9 +280,16 @@ button {
 
 .quiz__panel h2 {
   min-height: 92px;
-  margin: 0 0 28px;
+  margin: 0;
   font-size: 1.85rem;
   line-height: 1.45;
+}
+
+.quiz__hint {
+  margin: 16px 0 28px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 700;
 }
 
 .options {
@@ -288,7 +301,7 @@ button {
   width: 100%;
   min-height: 72px;
   display: grid;
-  grid-template-columns: 34px 1fr;
+  grid-template-columns: 34px 1fr auto;
   gap: 14px;
   align-items: center;
   border: 1px solid var(--line);
@@ -305,10 +318,16 @@ button {
 }
 
 .option:hover,
-.option.is-selected {
+.option.is-primary,
+.option.is-secondary {
   border-color: rgba(144, 78, 91, 0.62);
   background: #fbf0f1;
   transform: translateY(-1px);
+}
+
+.option.is-secondary {
+  border-color: rgba(105, 125, 120, 0.62);
+  background: #f2f7f5;
 }
 
 .option__letter {
@@ -325,6 +344,27 @@ button {
 .option__text {
   line-height: 1.65;
   font-weight: 700;
+}
+
+.option__badge {
+  min-width: 56px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: transparent;
+  color: transparent;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.option.is-primary .option__badge {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.option.is-secondary .option__badge {
+  background: var(--sage);
+  color: #ffffff;
 }
 
 .quiz__controls {
@@ -370,6 +410,7 @@ button {
 }
 
 .result__summary div,
+.compatibility,
 .scoreboard {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -378,6 +419,7 @@ button {
 }
 
 .result__summary span,
+.compatibility span,
 .scoreboard h3 {
   display: block;
   margin: 0 0 8px;
@@ -389,6 +431,22 @@ button {
 .result__summary p {
   margin: 0;
   color: var(--ink);
+  line-height: 1.75;
+}
+
+.compatibility {
+  margin-top: 14px;
+}
+
+.compatibility h3 {
+  margin: 0 0 8px;
+  font-size: 1.28rem;
+  line-height: 1.35;
+}
+
+.compatibility p {
+  margin: 0;
+  color: var(--muted);
   line-height: 1.75;
 }
 
@@ -530,6 +588,11 @@ button {
     grid-template-columns: 30px 1fr;
     min-height: 82px;
     padding: 14px;
+  }
+
+  .option__badge {
+    grid-column: 2;
+    justify-self: start;
   }
 
   .option__letter {
